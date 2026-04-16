@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Chat UI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-container {
+  width: 95%;
+  height: 95vh;
+  display: flex;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar {
+  width: 30%;
+  background: rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 20px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.chat-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.chat-item {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  cursor: pointer;
+  color: #ddd;
+}
+
+.chat-item:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6a5af9, #d66efd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.chat-name { color: #fff; }
+.chat-preview { font-size: 12px; color: #aaa; }
+
+.chat-area {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  padding: 20px;
+  display: flex;
+  gap: 15px;
+  color: #fff;
+  background: rgba(255,255,255,0.08);
+}
+
+.messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  max-width: 60%;
+  padding: 12px;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+.sent {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #6a5af9, #d66efd);
+  color: #fff;
+}
+
+.received {
+  align-self: flex-start;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.time {
+  font-size: 10px;
+  opacity: 0.7;
+  margin-top: 5px;
+}
+
+.chat-input {
+  padding: 15px;
+}
+
+.chat-input input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="chat-container">
+  
+  <div class="sidebar">
+    <div class="sidebar-header">💬 Chats</div>
+    <div class="chat-list" id="chatList"></div>
+  </div>
+
+  <div class="chat-area">
+    <div class="chat-header" id="chatHeader"></div>
+    <div class="messages" id="messages"></div>
+
+    <div class="chat-input">
+      <input type="text" placeholder="Type message...">
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+// ===== YOUR JSON (REPLACED) =====
+const data = {
+  "currentUser": {
+    "id": 1,
+    "name": "You"
+  },
+  "chats": [
+    {
+      "id": 101,
+      "user": {
+        "name": "John Doe",
+        "avatar": "J",
+        "status": "online"
+      },
+      "lastMessage": "Typing...",
+      "messages": [
+        {"id":1,"senderId":101,"text":"Hey 👋","time":"10:00 AM","type":"received"},
+        {"id":2,"senderId":1,"text":"Hello! How are you?","time":"10:01 AM","type":"sent"},
+        {"id":3,"senderId":101,"text":"I'm doing great, what about you?","time":"10:02 AM","type":"received"},
+        {"id":4,"senderId":1,"text":"All good here 😎","time":"10:03 AM","type":"sent"}
+      ]
+    },
+    {
+      "id": 102,
+      "user": {
+        "name": "Alice",
+        "avatar": "A",
+        "status": "offline"
+      },
+      "lastMessage": "See you later",
+      "messages": [
+        {"id":1,"senderId":102,"text":"Are we still meeting?","time":"Yesterday","type":"received"},
+        {"id":2,"senderId":1,"text":"Yes, by 5pm","time":"Yesterday","type":"sent"}
+      ]
+    },
+    {
+      "id": 103,
+      "user": {
+        "name": "Michael",
+        "avatar": "M",
+        "status": "online"
+      },
+      "lastMessage": "Thanks bro 🙌",
+      "messages": [
+        {"id":1,"senderId":1,"text":"Did you get it?","time":"Mon","type":"sent"},
+        {"id":2,"senderId":103,"text":"Yes I did!","time":"Mon","type":"received"},
+        {"id":3,"senderId":103,"text":"Thanks bro 🙌","time":"Mon","type":"received"}
+      ]
+    }
+  ]
+};
+
+// ===== ELEMENTS =====
+const chatList = document.getElementById("chatList");
+const messagesDiv = document.getElementById("messages");
+const chatHeader = document.getElementById("chatHeader");
+
+// ===== LOAD CHAT LIST =====
+function loadChats() {
+  chatList.innerHTML = "";
+
+  data.chats.forEach(chat => {
+    const div = document.createElement("div");
+    div.className = "chat-item";
+
+    div.innerHTML = `
+      <div class="avatar">${chat.user.avatar}</div>
+      <div>
+        <div class="chat-name">${chat.user.name}</div>
+        <div class="chat-preview">${chat.lastMessage}</div>
+      </div>
+    `;
+
+    div.onclick = () => openChat(chat);
+    chatList.appendChild(div);
+  });
+}
+
+// ===== OPEN CHAT =====
+function openChat(chat) {
+
+  chatHeader.innerHTML = `
+    <div class="avatar">${chat.user.avatar}</div>
+    ${chat.user.name}
+  `;
+
+  messagesDiv.innerHTML = "";
+
+  chat.messages.forEach(msg => {
+    const div = document.createElement("div");
+    div.className = `message ${msg.type}`;
+
+    div.innerHTML = `
+      ${msg.text}
+      <div class="time">${msg.time}</div>
+    `;
+
+    messagesDiv.appendChild(div);
+  });
+}
+
+// INIT
+loadChats();
+openChat(data.chats[0]);
+
+</script>
+
+</body>
+</html>

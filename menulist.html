@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food Menu</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.food-item {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.desc {
+  font-size: 14px;
+  color: #777;
+}
+
+.price {
+  font-weight: bold;
+  color: #e67e22;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Food Menu</h1>
+
+  <div class="food-item" id="food-list">
+    <div class="details">
+      <div class="name">Jollof Rice</div>
+      <div class="desc">Served with chicken and salad</div>
+    </div>
+    <div class="price">₦3,500</div>
+  </div>
+
+<script src="menuscript.js"></script>
+ 
+
+</div>
+
+</body>
+</html>
