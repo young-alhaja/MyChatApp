@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced To-Do UI</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container */
+.container {
+  background: #fff;
+  width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Input section */
+.input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-box input,
+.input-box textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+}
+
+.input-row button {
+  padding: 10px;
+  border: none;
+  background: #4CAF50;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* List */
+ul {
+  list-style: none;
+}
+
+/* Task card */
+li {
+  background: #f9f9f9;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Top row */
+.task-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-title {
+  font-weight: bold;
+}
+
+/* Description */
+.task-desc {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Bottom row */
+.task-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Buttons */
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.actions button {
+  border: none;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.edit {
+  background: #2196F3;
+  color: white;
+}
+
+.delete {
+  background: red;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>To-Do List</h2>
+
+  <!-- Input UI -->
+  <div class="input-box">
+    <input type="text" placeholder="Task title">
+    <textarea placeholder="Task description"></textarea>
+
+    <div class="input-row">
+      <input type="date">
+      <button onclick="addToList({'id':4, 'text':document.getElementById('newTask').value})">Add</button>
+    </div>
+  </div>
+
+  <!-- Task List UI -->
+  <ul id="menu_list">
+    <li>
+      <div class="task-top">
+        <span class="task-title" >Buy groceries</span> 
+  
+        <div class="actions">
+          <button class="edit">Edit</button>
+          <button class="delete">Del</button>
+        </div>
+      </div>
+
+      <div class="task-desc">
+        Buy rice, beans, and vegetables from the market.
+      </div>
+
+      <div class="task-bottom">
+        <span class="date">📅 2026-04-17</span>
+      </div>
+    </li>
+
+    <li>
+      <div class="task-top">
+          <span class="task-title">Go to school</span>
+          <div class="actions">
+          <button class="edit">Edit</button>
+          <button class="delete">Del</button>
+        </div>
+
+      </div>
+
+      <div class="task-desc">
+        Attend lectures and submit assignment.
+      </div>
+
+      <div class="task-bottom">
+        <span class="date">📅 2026-04-18</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

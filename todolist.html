@@ -84,8 +84,8 @@ li span {
   <h2>To-Do List</h2>
 
   <div class="input-box">
-    <input type="text" placeholder="Add a new task...">
-    <button>Add</button>
+    <input type="text" id="newTask" placeholder="Add a new task...">
+    <button onclick="addToList({'id':4, 'text':document.getElementById('newTask').value})">Add</button>
   </div>
 
   <ul id="menu_list">

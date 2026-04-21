@@ -1,23 +1,28 @@
-const response =  [
+[
     {
       "id": 1,
-      "text": "Buy Rice ",
+      "title": "Buy groceries",
+      "description": "Buy rice, beans, and vegetables from the market.",
+      "date": "2026-04-17",
       "completed": false
     },
     {
       "id": 2,
-      "text": "Pray",
+      "title": "Go to school",
+      "description": "Attend lectures and submit assignment.",
+      "date": "2026-04-18",
       "completed": false
     },
     {
       "id": 3,
-      "text": "Go to school",
+      "title": "Pray",
+      "description": "Observe daily prayers and reflection.",
+      "date": "2026-04-17",
       "completed": false
     }
-  ];
+  ]
 
-
-let list = response;
+  let title= response;
 let result = "";
 fetchList();
 function fetchList(){
@@ -34,7 +39,6 @@ function fetchList(){
   document.getElementById('menu_list').innerHTML = result;
 
 }
-
 function addToList(item){
     // alert(JSON.stringify(item));
     response.push(item);
@@ -49,5 +53,3 @@ function deleteList(index){
 function updateList(index,key,value){
 
 }
-
- 

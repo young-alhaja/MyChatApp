@@ -111,7 +111,7 @@ for(let i = 0; i < chats.length; i++){
     
         <div class="chat-header">
             <div class="avatar">J</div>
-               John Doe${chats[i].name}
+               ${chats[i].user.name}
         </div>
 
     `;
