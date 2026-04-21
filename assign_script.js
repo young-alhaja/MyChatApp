@@ -1,4 +1,4 @@
-[
+const response = [
     {
       "id": 1,
       "title": "Buy groceries",
@@ -20,36 +20,37 @@
       "date": "2026-04-17",
       "completed": false
     }
-  ]
-
-  let title= response;
-let result = "";
-fetchList();
-function fetchList(){
- result = "";
-    for(let i = 0; i < response.length; i++){
-       console.log(response[i]);
-      result += `
-
-     
-      <li> ${response[i].text}    <a onclick='deleteList(${i})'>Del</a></li> 
-  
-    `;
+  ];
+  let showresponse = '';
+fetchItem();
+  function addList(list_item){
+      response.push(list_item);
+      fetchItem();
   }
-  document.getElementById('menu_list').innerHTML = result;
 
-}
-function addToList(item){
-    // alert(JSON.stringify(item));
-    response.push(item);
-     fetchList();
-}
+  function fetchItem(){
+    showresponse='';
+  for(let each of response){
+     showresponse += `
+            <li>
+                <div class="task-top">
+                    <span class="task-title">${each.title}</span>
+                    <div class="actions">
+                    <button class="edit">Edit</button>
+                    <button class="delete">Del</button>
+                  </div>
 
-function deleteList(index){
-    response.splice(index, 1);
-    
-    fetchList();
-}
-function updateList(index,key,value){
+                </div>
 
-}
+                <div class="task-desc">
+                  ${each.description}
+                </div>
+
+                <div class="task-bottom">
+                  <span class="date">📅 ${each.date}</span>
+                </div>
+              </li>     
+     `
+  }
+  document.getElementById('menu_list').innerHTML  = showresponse;
+  }

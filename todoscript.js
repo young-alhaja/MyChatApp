@@ -44,7 +44,7 @@ function addToList(item){
 function deleteList(index){
     response.splice(index, 1);
     
-    fetchList();
+    fetchList();t
 }
 function updateList(index,key,value){
 
